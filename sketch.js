@@ -4,13 +4,15 @@ let noseX = 0;
 let noseY = 0;
 let eyelX = 0;
 let eyelY = 0;
- 
+var gif_loadImg, gif_createImg; //https://editor.p5js.org/kjhollen/sketches/S1bVzeF8Z
 function setup() {
   createCanvas(640, 480);
   video = createCapture(VIDEO);
   video.hide();
   poseNet = ml5.poseNet(video, modelReady);
   poseNet.on('pose', gotPoses);
+  gif_loadImg = loadImage("laugh.gif");
+  gif_createImg = createImg("laugh.gif");
 }
 
 function gotPoses(poses) {
@@ -33,13 +35,12 @@ function modelReady() {
 
 function draw() {
   image(video, 0, 0);
+  image(gif_loadImg, noseX-gif_loadImg.width/2, noseY-gif_loadImg.height/2);
+  gif_createImg.position(noseX-gif_createImg.width/2, noseY-gif_createImg.height/2);
   
-  let d = dist(noseX, noseY, eyelX, eyelY);
-
-  fill(255, 0, 0);
-  ellipse(noseX, noseY, d);
+  // let d = dist(noseX, noseY, eyelX, eyelY);
+  // fill(255, 0, 0);
+  // ellipse(noseX, noseY, d);
   //fill(0,0,255);
   //ellipse(eyelX, eyelY, 50);
-
-
 }
